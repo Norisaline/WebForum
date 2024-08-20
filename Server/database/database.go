@@ -15,11 +15,17 @@ var DBconn *gorm.DB
 // Подклчение к базе данных
 func ConnectDB() {
 
-	user := os.Getenv("db_user")
-	password := os.Getenv("db_password")
-	dbname := os.Getenv("db_name")
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
+		os.Getenv("db_host"),
+		os.Getenv("db_user"),
+		os.Getenv("db_password"),
+		os.Getenv("db_name"),
+		os.Getenv("db_port"),
+		os.Getenv("db_sslmodel"),
+		os.Getenv("db_timezone"),
+	)
 
-	dsn := "host=localhost" + user + ":" + password + ":" + dbname + "port=5432 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Error),
 	})
