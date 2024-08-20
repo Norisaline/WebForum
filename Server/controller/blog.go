@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"github.com/Norisaline/WebForum.git/database"
+	"github.com/Norisaline/WebForum.git/model"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,6 +13,14 @@ func BlogList(c *fiber.Ctx) error {
 		"statusText": "OK",
 		"message":    "blog List",
 	}
+
+	db := database.DBconn
+
+	var records []model.Blog
+
+	db.Find(&records)
+
+	context["blog_records"] = records
 
 	c.Status(200)
 	return c.JSON(context)

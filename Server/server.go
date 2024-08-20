@@ -1,14 +1,22 @@
 package main
 
 import (
+	"log"
+
 	"github.com/Norisaline/WebForum.git/database"
 	"github.com/Norisaline/WebForum.git/router"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/joho/godotenv"
 )
 
 // отдельная функция для подключение к базе данных
 func init() {
+
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("Ошиба в загрузке файла .env")
+	}
+
 	database.ConnectDB()
 }
 
